@@ -32,7 +32,7 @@ describe('batch queries', function() {
         var cql = util.format('INSERT INTO %s (row, col, val) VALUES (?, ?, ?)', table);
         return client.prepare(cql)
             .then(function(prepared) {
-                var batch = client.new_batch('unlogged');
+                var batch = client.batch('unlogged');
                 _.each(rows, function(row) {
                     batch.add_prepared(prepared, [row, 10, 1000000]);
                 });
@@ -54,7 +54,7 @@ describe('batch queries', function() {
         var cql = util.format('INSERT INTO %s (row, col, val) VALUES (?, ?, ?)', table);
         return client.prepare(cql)
             .then(function(prepared) {
-                var batch = client.new_batch('unlogged');
+                var batch = client.batch('unlogged');
                 batch.add_prepared(prepared, ["foo", "bar", "baz"]);
                 Promise.promisifyAll(batch);
                 return batch.executeAsync({});
@@ -74,7 +74,7 @@ describe('batch queries', function() {
         var bogus = [null, undefined, {}, 1, "foo"];
         return Promise.map(bogus, function(bad) {
             return Promise.try(function() {
-                var batch = client.new_batch('unlogged');
+                var batch = client.batch('unlogged');
                 batch.add(bad);
             })
             .then(function() {
@@ -90,7 +90,7 @@ describe('batch queries', function() {
         var bogus = [null, undefined, {}, 1, "foo"];
         return Promise.map(bogus, function(bad) {
             return Promise.try(function() {
-                var batch = client.new_batch('unlogged');
+                var batch = client.batch('unlogged');
                 batch.add_prepared(bad, []);
             })
             .then(function() {

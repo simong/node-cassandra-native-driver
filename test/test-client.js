@@ -33,8 +33,8 @@ var TestClient = Base.extend({
         return this.client.prepareAsync.apply(this.client, arguments);
     },
 
-    new_batch: function(style) {
-        return this.client.new_batch(style);
+    batch: function(style) {
+        return this.client.batch(style);
     },
 
     metrics: function (reset) {
@@ -180,7 +180,7 @@ var TestClient = Base.extend({
         }
 
         function _insert_batch(x, batch_i, n, cb) {
-            var batch = self.client.new_batch("unlogged");
+            var batch = self.client.batch("unlogged");
 
             _.times(batch_size, function(i) {
                 var d = data[(batch_i * batch_size) + i];

@@ -32,7 +32,7 @@ describe('async-future callbacks', function() {
         var cql = util.format('INSERT INTO %s (row, col, val) VALUES (?, ?, ?)', table);
         return client.prepare(cql)
             .then(function(prepared) {
-                var batch = client.new_batch('unlogged');
+                var batch = client.batch('unlogged');
                 _.each(rows, function(row) {
                     batch.add_prepared(prepared, [row, 10, 1000000]);
                 });

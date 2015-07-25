@@ -79,7 +79,7 @@ Supported options include:
 
 On completion, will execute `callback(err, results)`. If there is no error, then `results.rows` contains the requested data. If `fetchSize` was specified and the results may have been truncated, then `results.pageState` contains a handle that can be passed as an option to a subsequent invocation to have it continue processing results.
 
-## new_query()
+## query()
 
 Low level API to create a query object.
 
@@ -94,7 +94,7 @@ Prepare the query for more efficient execution.
 
 On completion, calls `callback(err, prepared)`. If there is no error then prepared contains an instance of a [Prepared](#prepared) query, otherwise `err` indicates the error.
 
-## new_batch(type)
+## batch(type)
 
 Create a new batch query.
 
@@ -110,7 +110,7 @@ Return performance metrics about the driver's operation.
 
 # <a name="query"></a> Query
 
-Query is the underlying object exposed by the C++ node driver for executing queries, obtained from `Client.new_query(...)`
+Query is the underlying object exposed by the C++ node driver for executing queries, obtained from `Client.query(...)`
 
 ## parse(query, params, options)
 
@@ -161,7 +161,7 @@ Returns a new instance of a [Query](#query) object. The caller must call `bind()
 
 # <a name="batch"></a> Batch
 
-Batch queries can be used to amortize the cost of multiple round trips to the cassandra cluster. They are never instantiated directly but are returned from `Client.new_batch(...)`.
+Batch queries can be used to amortize the cost of multiple round trips to the cassandra cluster. They are never instantiated directly but are returned from `Client.batch(...)`.
 
 ## add(query)
 

@@ -33,7 +33,7 @@ private:
 
     WRAPPED_METHOD_DECL(Connect);
     WRAPPED_METHOD_DECL(NewQuery);
-    WRAPPED_METHOD_DECL(NewPreparedQuery);
+    WRAPPED_METHOD_DECL(NewPrepared);
     WRAPPED_METHOD_DECL(NewBatch);
     WRAPPED_METHOD_DECL(GetMetrics);
 
