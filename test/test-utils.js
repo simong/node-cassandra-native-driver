@@ -3,7 +3,7 @@ var ks = 'test_keyspace';
 // connects the client to Cassandra and sets up the given keyspace
 // assumes that Cassanra is running on port 9042 of localhost
 function setup_environment(client) {
-    return client.connect({address: '127.0.0.1'})
+    return client.connect({contactPoints: '127.0.0.1'})
     .then(function() {
         return client.cleanKeyspace(ks);
     })

@@ -132,16 +132,16 @@ WRAPPED_METHOD(Client, Connect) {
     }
 
     Local<Object> options = args[0].As<Object>();
-    static PersistentString address_str("address");
+    static PersistentString contactPoints_str("contactPoints");
     static PersistentString port_str("port");
 
     int port;
 
-    if (options->Has(address_str)) {
-        String::Utf8Value address(options->Get(address_str).As<String>());
-        cass_cluster_set_contact_points(cluster_, *address);
+    if (options->Has(contactPoints_str)) {
+        String::Utf8Value contactPoints(options->Get(contactPoints_str).As<String>());
+        cass_cluster_set_contact_points(cluster_, *contactPoints);
     } else {
-        return NanThrowError("connect requires a address");
+        return NanThrowError("connect requires a contactPoints");
     }
 
     if (options->Has(port_str)) {
