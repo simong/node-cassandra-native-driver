@@ -23,6 +23,9 @@ TypeMapper::infer_type(const Local<Value>& value)
     else if (value -> IsBoolean()) {
         return CASS_VALUE_TYPE_BOOLEAN;
     }
+    else if (value->IsDate()) {
+        return CASS_VALUE_TYPE_TIMESTAMP;
+    }
     else if (value -> IsObject()) {
         // If the value has a low/high key it's a bigint, otherwise it's a map
         Local<Object> obj = value->ToObject();
@@ -259,8 +262,15 @@ TypeMapper::v8_from_cassandra(v8::Local<v8::Value>* result, CassValueType type,
         *result = NanNew<Number>(intValue);
         return true;
     }
-    case CASS_VALUE_TYPE_COUNTER:
     case CASS_VALUE_TYPE_TIMESTAMP: {
+        cass_int64_t intValue;
+        if (cass_value_get_int64(value, &intValue) != CASS_OK) {
+            return false;
+        }
+        *result = NanNew<Date>((double)intValue);
+        return true;
+    }
+    case CASS_VALUE_TYPE_COUNTER: {
         cass_int64_t intValue;
         if (cass_value_get_int64(value, &intValue) != CASS_OK) {
             return false;

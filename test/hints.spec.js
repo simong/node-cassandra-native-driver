@@ -27,7 +27,7 @@ var types = [
     },
     {
         type: 'timestamp',
-        value: 1423515666128,
+        value: new Date(),
         code: types.CASS_VALUE_TYPE_TIMESTAMP
     },
     {
